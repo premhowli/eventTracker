@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import {Dimensions, FlatList, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { connect } from "react-redux";
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import {swipeDirections} from 'react-native-swipe-gestures';
 import * as contentActions from '../../../redux/actions/contentActions';
 import theme from '../../../styles/theme';
+import style from './styles';
 import * as feedActions from '../../../redux/actions/feedActions';
 import {CustomCachedImage} from 'react-native-img-cache';
 import Image from 'react-native-image-progress';
@@ -34,7 +35,6 @@ class Home extends Component{
             index: 0,
         };
 
-
         this.screenWidth = Dimensions.get("window").width;
         this.screenHeight = Dimensions.get("window").height;
 
@@ -51,22 +51,11 @@ class Home extends Component{
 
 
     _renderRows = ({item, index, separators})=>{
-
-
         const data = this.state.allEvent;
-
         if(this.state.showList){
             return(
                 <CellContainer>
-                    <TouchableOpacity  style={{
-                        justifyContent:'center',
-                        alignItems:'center',
-                        marginBottom:10,
-                        height:this.screenHeight*theme.heights.titleHeightPercentage,
-                        width:this.screenWidth*0.95,
-                        borderRadius:5,
-                        elevation:5,
-                        backgroundColor:theme.colors.tileColor}}
+                    <TouchableOpacity  style={style.cardContainer}
 
                                       onPress={()=>{
                                           this.props.navigation.navigate('Cart',{
@@ -268,7 +257,7 @@ class Home extends Component{
         return(
             <SafeAreaView style={{flex:1}}>
 
-                <View style={{height:50,backgroundColor:theme.colors.statusBarColor, justifyContent:'center',paddingHorizontal:10}}>
+                <View style={style.AppBarContainer}>
                     <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:'center'}}>
                         <Text style={{fontWeight:"bold"}}>BeeCash</Text>
                         <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:'center'}}>
@@ -286,7 +275,6 @@ class Home extends Component{
                                     :
                                     <TouchableOpacity
                                         onPress={()=>{
-                                            //fsgst
                                             this._changeViewState();
                                         }
                                         }

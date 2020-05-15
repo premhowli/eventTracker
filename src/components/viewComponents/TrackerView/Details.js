@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import {View, Text, Dimensions, TouchableOpacity, FlatList, ScrollView, SafeAreaView} from 'react-native';
+import React from "react";
+import {View, Text, Dimensions, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
 import * as feedActions from '../../../redux/actions/feedActions';
 import * as contentActions from '../../../redux/actions/contentActions';
 
@@ -13,7 +13,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 export class TrackerCart extends React.Component {
     constructor(args) {
         super(args);
-
         let { width } = Dimensions.get("window");
         this.state = {
             showSortableView:false,
@@ -24,28 +23,22 @@ export class TrackerCart extends React.Component {
         };
         this.screenWidth = Dimensions.get("window").width;
         this.screenHeight = Dimensions.get("window").height;
-
     }
 
     componentDidMount(){
         this.id = this.props.navigation.getParam("id",null);
-
         this.props.fetchDetails(this.id);
     }
 
 
     static getDerivedStateFromProps(nextProp, prevState) {
-
         return {
             eventDetails: nextProp.eventDetails !== prevState.eventDetails ? nextProp.eventDetails : prevState.eventDetails,
-
         }
-
     }
     render() {
 
         let eventDetails = null;
-
         if(this.state.eventDetails && this.state.eventDetails.length>0){
             eventDetails = this.state.eventDetails[0];
         }
@@ -64,7 +57,6 @@ export class TrackerCart extends React.Component {
                                 style={
                                     {
                                         height:this.screenHeight*0.3,
-
                                         width:this.screenWidth,
                                     }
                                 }>
