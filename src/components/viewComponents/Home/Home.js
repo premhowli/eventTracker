@@ -47,6 +47,7 @@ class Home extends Component{
     }
 
     _renderRows = ({item, index, separators})=>{
+        console.log("<<<< = "+this.state.viewType);
         const data = this.state.allEvent;
         if(this.state.showList){
             return(
@@ -181,6 +182,7 @@ class Home extends Component{
     };
 
     _changeViewState = () => {
+        //unnecessary code to global state. just kept for demonstration.
         if(this.state.showList){
             this.props.changeViewType("grid");
         }
@@ -191,6 +193,8 @@ class Home extends Component{
             return {
                 showList: !prevState.showList
             }
+        },()=>{
+            console.log("<<<< 2 = "+this.state.showList);
         })
     }
 
@@ -231,6 +235,8 @@ class Home extends Component{
                     {
                         this.state.allEvent?
                             <FlatList
+                                showsVerticalScrollIndicator={false}
+                                type = {this.state.showList}
                                 style={style.eventsContainer}
                                 contentContainerStyle={style.eventsContainerContent}
                                 data={this.state.allEvent}

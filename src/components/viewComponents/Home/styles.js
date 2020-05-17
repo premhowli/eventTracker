@@ -66,7 +66,7 @@ export default styles = StyleSheet.create({
         alignItems:'center'
     },
     eventsContainer:{
-        marginTop:10,
+        paddingTop:10,
         backgroundColor:theme.colors.backgroundColor,
         width:screenWidth
     },
