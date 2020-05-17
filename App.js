@@ -1,18 +1,21 @@
 import React from 'react';
 import {
-    StatusBar
+    StatusBar,View
 } from 'react-native';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react'
 import {persistor, store} from './store/store';
 import theme from './src/styles/theme';
-import Home from './src/components/viewComponents/Home/AppContent';
-StatusBar.setBackgroundColor(theme.colors.statusBarColor);
-StatusBar.setBarStyle("light-content")
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import AppContent from './src/components/viewComponents/Home/AppContent';
-//import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
+
+
+const MyStatusBar = ({backgroundColor, ...props}) => (
+    <View style={[{ height : Platform.OS === 'ios' ? 44 : 44}, { backgroundColor }]}>
+        <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+);
 
 class App extends React.Component {
 
@@ -29,6 +32,13 @@ class App extends React.Component {
                     persistor={persistor}
                 >
                     <NavigationContainer>
+                        {
+                            Platform.OS === 'ios'?
+                                <MyStatusBar backgroundColor={theme.colors.statusBarColor} barStyle="light-content" />
+                                :
+                                <StatusBar backgroundColor={theme.colors.statusBarColor}/>
+                        }
+
                         <AppContent />
                     </NavigationContainer>
                 </PersistGate>

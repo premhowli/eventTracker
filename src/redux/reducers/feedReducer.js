@@ -24,7 +24,7 @@ const initialState = {
             "location" : "Malleswaram Grounds",
             isPaid:false,
             price:null,
-            "imageUrl": "https://images.unsplash.com/photo-1585487000216-500fa602c1ca?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80"
+            "imageUrl": "https://images.unsplash.com/photo-1589629768373-735a7d1aee71?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
         },
         {
             "id": 4,
