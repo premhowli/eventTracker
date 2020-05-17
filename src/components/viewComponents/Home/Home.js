@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import {Dimensions, FlatList, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { connect } from "react-redux";
-import {swipeDirections} from 'react-native-swipe-gestures';
 import * as contentActions from '../../../redux/actions/contentActions';
-import theme from '../../../styles/theme';
 import style from './styles';
 import * as feedActions from '../../../redux/actions/feedActions';
 import {CustomCachedImage} from 'react-native-img-cache';
@@ -40,7 +38,6 @@ class Home extends Component{
 
     }
 
-
     static getDerivedStateFromProps(nextProp, prevState) {
         return {
             allEvent: nextProp.allEvent !== prevState.allEvent ? nextProp.allEvent : prevState.allEvent,
@@ -49,22 +46,20 @@ class Home extends Component{
 
     }
 
-
     _renderRows = ({item, index, separators})=>{
         const data = this.state.allEvent;
         if(this.state.showList){
             return(
                 <CellContainer>
-                    <TouchableOpacity  style={style.cardContainer}
+                    <TouchableOpacity  style={style.listCardContainer}
+                                       onPress={()=>{
+                                           this.props.navigation.navigate('Cart',{
+                                               id : item.id
 
-                                      onPress={()=>{
-                                          this.props.navigation.navigate('Cart',{
-                                              id : item.id
-
-                                          })
-                                      }}
+                                           })
+                                       }}
                     >
-                        <View style={{flex:3,backgroundColor:theme.colors.statusBarColor,borderTopRightRadius:5,borderTopLeftRadius:5}}>
+                        <View style={style.listViewCardImageContainer}>
                             <CustomCachedImage
                                 component={Image}
                                 source={{ uri: item.imageUrl }}
@@ -73,22 +68,11 @@ class Home extends Component{
                                     borderRadius:5
                                 }}
                                 style={
-                                    {
-                                        height:this.screenHeight*theme.heights.titleHeightPercentage*(3/5),width:this.screenWidth*0.95,
-                                        borderTopRightRadius:5
-                                    }
+                                    style.listViewCardImage
                                 }/>
                         </View>
-                        <View style={{flex:2,
-                            width:'100%',
-                            borderBottomLeftRadius:5,
-                            borderBottomRightRadius:5,
-
-                        }}>
-                            <View style={{padding:10,
-                                height:"100%",
-                                flexDirection:'row',
-                                }}>
+                        <View style={style.listViewCardDetailsContainer}>
+                            <View style={style.listViewCardDetailsContainerView}>
                                 <View style={{flex:3}}>
                                 <Text style={{color:'#000068',fontSize:20,fontWeight: 'bold'}}>
                                     {item.name}
@@ -97,15 +81,10 @@ class Home extends Component{
                                     {item.location}
                                 </Text>
                                 </View>
-                                <View style={{postion:'absotute',right:0,
-
-                                    justifyContent:'center',
-                                    alignItems:'flex-end',
-                                    }}>
-                                    <Text style={{
-                                        fontWeight:'bold',
-                                        color:'#000068',
-                                        fontSize:20}}>{item.isPaid?"₹"+item.price:"Free"}</Text>
+                                <View style={style.listViewCardDetailsPriceContainer}>
+                                    <Text style={style.listViewCardDetailsPriceText}>
+                                        {item.isPaid?"₹"+item.price:"Free"}
+                                        </Text>
                                 </View>
                             </View>
                         </View>
@@ -124,15 +103,7 @@ class Home extends Component{
                     <View style={{width:this.screenWidth,flexDirection:'row',justifyContent:(data[index] && data[index+1])?'space-around':'center'}}>
                         {
                             data[index]?
-                                <TouchableOpacity style={{
-                                    justifyContent:'center',
-                                    alignItems:'center',
-                                    marginBottom:10,
-                                    height:this.screenHeight*0.3,
-                                    width:this.screenWidth*0.45,
-                                    borderRadius:5,
-                                    elevation:5,
-                                    backgroundColor:theme.colors.tileColor}}
+                                <TouchableOpacity style={style.gridTile}
 
                                                   onPress={()=>{
                                                       this.props.navigation.navigate('Cart',{
@@ -151,17 +122,10 @@ class Home extends Component{
                                             borderRadius:5
                                         }}
                                         style={
-                                            {
-                                                height:"100%",width:"100%",
-                                                borderTopRightRadius:5
-                                            }
+                                            style.gridTileImage
                                         }>
-                                        <View style={{flex:1,backgroundColor:"#00000077",borderRadius:5,padding:10,justifyContent:'flex-end',
-                                        alignItems:'flex-start'}}>
-                                        <Text style={{color:'#ffffff',
-                                            fontSize:20,
-                                            fontWeight:'bold'
-                                        }}>
+                                        <View style={style.gridTileImageChild}>
+                                        <Text style={style.gridTileImageChildName}>
                                             {data[index].name}
                                         </Text>
                                         </View>
@@ -174,15 +138,7 @@ class Home extends Component{
                         }
                         {
                             data[index+1] ?
-                                <TouchableOpacity style={{
-                                    justifyContent:'center',
-                                    alignItems:'center',
-                                    marginBottom:10,
-                                    height:this.screenHeight*0.3,
-                                    width:this.screenWidth*0.45,
-                                    borderRadius:5,
-                                    elevation:5,
-                                    backgroundColor:theme.colors.tileColor}}
+                                <TouchableOpacity style={style.gridTile}
 
                                                   onPress={()=>{
                                                       this.props.navigation.navigate('Cart',{
@@ -201,17 +157,10 @@ class Home extends Component{
                                             borderRadius:5
                                         }}
                                         style={
-                                            {
-                                                height:"100%",width:"100%",
-                                                borderTopRightRadius:5
-                                            }
+                                           style.gridTileImage
                                         }>
-                                        <View style={{flex:1,backgroundColor:"#00000077",borderRadius:5,padding:10,justifyContent:'flex-end',
-                                            alignItems:'flex-start'}}>
-                                            <Text style={{color:'#ffffff',
-                                                fontSize:20,
-                                                fontWeight:'bold'
-                                            }}>
+                                        <View style={style.gridTileImageChild}>
+                                            <Text style={style.gridTileImageChildName}>
                                                 {data[index+1].name}
                                             </Text>
                                         </View>
@@ -231,7 +180,6 @@ class Home extends Component{
         }
     };
 
-
     _changeViewState = () => {
         if(this.state.showList){
             this.props.changeViewType("grid");
@@ -239,38 +187,28 @@ class Home extends Component{
         else{
             this.props.changeViewType("list");
         }
-
         this.setState((prevState)=>{
             return {
                 showList: !prevState.showList
             }
-        },()=>{
-            console.log("ho gaya"+this.state.showList);
         })
     }
 
     render(){
-        const config = {
-            velocityThreshold: 0.1,
-            directionalOffsetThreshold: 50
-        };
         return(
             <SafeAreaView style={{flex:1}}>
 
                 <View style={style.AppBarContainer}>
-                    <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:'center'}}>
+                    <View style={style.AppBarContainerView}>
                         <Text style={{fontWeight:"bold"}}>BeeCash</Text>
-                        <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:'center'}}>
+                        <View style={{alignItems:'center'}}>
                             {
                                 this.state.showList && this.state.showList ?
                                     <TouchableOpacity
                                         onPress={()=>{
                                             this._changeViewState();
-                                            //this.props.navigation.navigate('Cart');
-                                        }
-
-                                        }>
-                                        <Entypo name="grid" size={30}></Entypo>
+                                        }}>
+                                        <Entypo name="grid" size={32}></Entypo>
                                     </TouchableOpacity>
                                     :
                                     <TouchableOpacity
@@ -291,34 +229,19 @@ class Home extends Component{
                 </View>
                 <View style={{height:this.screenHeight-50}}>
                     {
-
-                            <View
-                                style={{
-                                    height:this.screenHeight-50,
-                                    backgroundColor: this.state.backgroundColor
-                                }}
-                            >
-                                {
-                                    this.state.allEvent?
-                                        <FlatList
-                                            style={{marginTop:10,
-                                                backgroundColor:theme.colors.backgroundColor,
-                                                width:this.screenWidth}}
-                                            contentContainerStyle={{alignItems:'center',paddingBottom:this.screenHeight*0.15}}
-                                            data={this.state.allEvent}
-                                            renderItem={this._renderRows}
-                                        />
-                                        :
-                                        <View>
-                                            <Text>
-                                                No events available right now!!
-                                            </Text>
-                                        </View>
-                                }
-
+                        this.state.allEvent?
+                            <FlatList
+                                style={style.eventsContainer}
+                                contentContainerStyle={style.eventsContainerContent}
+                                data={this.state.allEvent}
+                                renderItem={this._renderRows}
+                            />
+                            :
+                            <View>
+                                <Text>
+                                    No events available right now!!
+                                </Text>
                             </View>
-
-
                     }
                 </View>
             </SafeAreaView>

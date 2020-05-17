@@ -1,7 +1,6 @@
-import httpHandler from './../httpHandler';
+
 import {
     ADD_ITEM_TO_TRACKER,
-    API_DUMMY,
     CHANGE_ALL_CONTENT,
     CHANGE_ALL_VALUES,
     CHANGE_DRAGGING,
@@ -13,21 +12,6 @@ import {
 
 const customData = require('../../content');
 
-
-//
-// export const getAllContent = (page,dispatch) => {
-//   httpHandler.get(API_DUMMY)
-//     .then((response) => {
-//         console.log("DP response = "+JSON.stringify(response.data));
-//       dispatch({
-//         type: GET_ALL_CONTENT,
-//         payload: {
-//           "allContent": response.data.slice((page-1)*50,((page-1)*50)+50)
-//         }
-//       })
-//     })
-// };
-
 export const changeAllContent = (arr,dispatch) => {
     dispatch(
         {
@@ -35,17 +19,14 @@ export const changeAllContent = (arr,dispatch) => {
             payload : {
                 "content" : arr,
             }
-
         }
     )
 };
-
 export const getAllContent = (page,dispatch) => {
     dispatch({
         type: GET_ALL_CONTENT,
         payload: {
             "allContent": [
-
                 {"id":2,"name":"chal",color:"#e3a256","imageUrl":"https://images.unsplash.com/photo-1558981001-5864b3250a69?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"},
                 {"id":3,"name":"zxde",color:"#a3c216","imageUrl":"https://images.unsplash.com/photo-1585487000216-500fa602c1ca?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80"},
                 {"id":4,"name":"tal",color:"#b31256","imageUrl":"https://images.unsplash.com/photo-1585504256881-6c673bf5c298?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=957&q=80"},
@@ -56,9 +37,6 @@ export const getAllContent = (page,dispatch) => {
                 {"id":9,"name":"vgyu",color:"#a3b25f","imageUrl":"https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"},
                 {"id":10,"name":"bhai",color:"#e0e216","imageUrl":"https://images.unsplash.com/photo-1585419062137-acaf0c8aeb13?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80"},
                 {"id":11,"name":"nvbg",color:"#f3a0ff","imageUrl":"https://images.unsplash.com/photo-1585520523655-ccd7931e09e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"}
-
-
-
             ],
             dragging:false
         }
@@ -71,9 +49,7 @@ export const getCon = (dispatch) =>{
         {
             type:'abc',
             payload: {
-
                 content: [
-
                 ],
                 dragging: false,
                 draggingIdx: -1,
@@ -81,7 +57,6 @@ export const getCon = (dispatch) =>{
         }
     )
 };
-
 export const changeViewType = (type,dispatch) => {
     dispatch(
         {
@@ -103,7 +78,6 @@ export const changeDraggingIdx = (type,dispatch) => {
         }
     )
 }
-
 export const changeDragging = (type,dispatch) => {
     dispatch(
         {
@@ -114,7 +88,6 @@ export const changeDragging = (type,dispatch) => {
         }
     )
 }
-
 export const changeValues = (val1,val2,dispatch) => {
     dispatch(
         {
@@ -126,7 +99,6 @@ export const changeValues = (val1,val2,dispatch) => {
         }
     )
 }
-
 export const changeAllValues = (dragging,draggingIdx,content,dispatch) => {
     dispatch(
         {
@@ -139,8 +111,6 @@ export const changeAllValues = (dragging,draggingIdx,content,dispatch) => {
         }
     )
 }
-
-
 export const changeForMove = (draggingIdx,content,dispatch) => {
     dispatch(
         {
@@ -152,7 +122,6 @@ export const changeForMove = (draggingIdx,content,dispatch) => {
         }
     )
 }
-
 export const deleteItemFromTracker = (id,dispatch) => {
     dispatch(
         {
@@ -163,7 +132,6 @@ export const deleteItemFromTracker = (id,dispatch) => {
         }
     )
 }
-
 export const addItemToTracker = (item,dispatch) => {
     dispatch(
         {
@@ -174,7 +142,6 @@ export const addItemToTracker = (item,dispatch) => {
         }
     )
 }
-
 export const doLogin = (name,dispatch) => {
     dispatch(
         {

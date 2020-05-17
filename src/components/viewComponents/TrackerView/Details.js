@@ -2,7 +2,7 @@ import React from "react";
 import {View, Text, Dimensions, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
 import * as feedActions from '../../../redux/actions/feedActions';
 import * as contentActions from '../../../redux/actions/contentActions';
-
+import style from './style';
 import { connect } from "react-redux";
 import theme from '../../../styles/theme'
 import {CustomCachedImage} from 'react-native-img-cache';
@@ -55,16 +55,10 @@ export class TrackerCart extends React.Component {
                                 imageStyle={{
                                 }}
                                 style={
-                                    {
-                                        height:this.screenHeight*0.3,
-                                        width:this.screenWidth,
-                                    }
+                                    style.detailsImage
                                 }>
                                 <TouchableOpacity
-                                    style={{position:'absolute',
-                                    top:10,
-                                    left:10,
-                                    width:30,height:30}}
+                                    style={style.backButton}
                                     onPress={()=>{
                                         this.props.navigation.goBack();
                                     }
@@ -73,55 +67,26 @@ export class TrackerCart extends React.Component {
                                 >
                                     <MaterialCommunityIcons name={'arrow-left'} size={30} color={'#ffffff'}/>
                                 </TouchableOpacity>
-                                <View style={{position:'absolute',
-                                    right:0,
-                                    bottom:0,
-                                    height:40,
-                                    backgroundColor:'#00000077',
-                                    borderTopLeftRadius:10,
-                                    justifyContent:'center',
-                                    alignItems:'center',
-                                    minWidth:100}}>
-                                    <Text style={{color:"#ffffff",fontSize:20,fontWeight:'bold'}}>{eventDetails.isPaid?"₹"+eventDetails.price:"Free"}</Text>
+                                <View style={style.detailsPriceContainer}>
+                                    <Text style={style.detailsPriceText}>{eventDetails.isPaid?"₹"+eventDetails.price:"Free"}</Text>
 
                                 </View>
                             </CustomCachedImage>
-                            <View style={{width:"100%",
-                                minHeight:60,
-                                paddingHorizontal:10,
-                                alignItems:"flex-start",
-                                justifyContent:'flex-end'}}>
-                                <Text style={{fontWeight:'bold',fontSize:30}}>{eventDetails.name}</Text>
+                            <View style={style.detailsHeaderContainer}>
+                                <Text style={style.detailsHeaderText}>{eventDetails.name}</Text>
 
                             </View>
-                            <View style={{width:"100%",
-                                height:30,
-                                paddingHorizontal:10,
-                                alignItems:"flex-start",
-                                justifyContent:'flex-start'}}>
-                                <Text style={{fontWeight:'bold',fontSize:10}}>{eventDetails.location}</Text>
+                            <View style={style.detailsSubHeaderContainer}>
+                                <Text style={style.detailsSubHeaderText}>{eventDetails.location}</Text>
 
                             </View>
 
-                            <View style={{width:"100%",
-                                height:this.screenHeight*0.3,
-                                marginTop:10,
-                                justifyContent:'center',
-                                paddingHorizontal:10,
-                                alignItems:"center",
-
-
-                            }}>
-                                <Text style={{fontWeight:'bold',fontSize:10}}>{"Placeholder for a paragraph of details"}</Text>
+                            <View style={style.detailsDescriptionContainer}>
+                                <Text style={style.detailsSubHeaderText}>{"Placeholder for a paragraph of details"}</Text>
 
                             </View>
                             <View style={{width:this.screenWidth,alignItems:'center'}}>
-                                <TouchableOpacity style={{height:45,
-                                    width:this.screenWidth*0.7,
-                                    borderRadius:22.5,
-                                    justifyContent:'center',
-                                    alignItems:'center',
-                                    backgroundColor:theme.colors.statusBarColor}}
+                                <TouchableOpacity style={style.detailsCTAButton}
                                     onPress={()=>{
                                         this.props.addItemToTracker(eventDetails);
                                         this.props.navigation.navigate("Track");
@@ -129,18 +94,14 @@ export class TrackerCart extends React.Component {
                                     }
 
                                 >
-                                    <Text style={{fontSize:25,color:'#ffffff'}}>{eventDetails.isPaid?"Buy Now":"Track"}</Text>
+                                    <Text style={style.detailsCTAButtonText}>{eventDetails.isPaid?"Buy Now":"Track"}</Text>
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{}}>
-
-                            </View>
                         </View>:
                         <View>
                             <Text>Something went wrong! please try again.</Text>
                         </View>
-
                     }
                 </ScrollView>
             </SafeAreaView>

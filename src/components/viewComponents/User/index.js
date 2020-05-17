@@ -1,8 +1,5 @@
-/***
- Use this component inside your React Native Application.
- A scrollable list with different item type
- */
-import React, { Component } from "react";
+
+import React from "react";
 import {View, Text, Dimensions, TouchableOpacity, TextInput} from 'react-native';
 import * as contentActions from '../../../redux/actions/contentActions';
 
@@ -16,7 +13,6 @@ class Login extends React.Component {
             name:null,
         }
     }
-
     render() {
         return(
             <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
@@ -28,7 +24,6 @@ class Login extends React.Component {
                         })
                     }}
                     placeholder={"Enter your name"}
-
                     value={this.state.name}
                 />
                 <TouchableOpacity

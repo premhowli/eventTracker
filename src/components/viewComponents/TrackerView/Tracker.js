@@ -4,6 +4,7 @@ import { RecyclerListView, DataProvider, LayoutProvider } from "recyclerlistview
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import Animated from "react-native-reanimated";
 import Image from 'react-native-image-progress';
+import style from './style';
 import theme from '../../../styles/theme';
 import {CustomCachedImage} from 'react-native-img-cache';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -18,16 +19,6 @@ const ViewTypes = {
 };
 
 let containerCount = 0;
-
-class CellContainer extends React.Component {
-    constructor(args) {
-        super(args);
-        this._containerId = containerCount++;
-    }
-    render() {
-        return <View {...this.props}>{this.props.children}<Text>Cell Id: {this._containerId}</Text></View>;
-    }
-}
 
 const { cond, eq, add, call, set, Value, event, or } = Animated;
 
@@ -120,21 +111,8 @@ class RecycleTestComponent extends React.Component {
     //Given type and data return the view component
     _rowRenderer = (type, data, index, _, nope)=> {
         return (
-
                 <TouchableOpacity
-                    style={{
-
-                    height:230,
-                    marginHorizontal:10,
-                    backgroundColor: nope ? "#f2f2f2" : "#dddddd",
-                    display: "flex",
-                    flexDirection: "column",
-                    borderRadius:5,
-                        marginVertical:10,
-                    justifyContent:'space-between',
-                    alignItems: "center",
-                    // opacity: !nope && index ===this.state.draggingIdx ? 0 : 1
-                }}
+                    style={[style.trackerListItemContainer,{backgroundColor: nope ? "#f2f2f2" : "#dddddd",}]}
                     onPress={()=>{
                         this.props.navigation.navigate('Details',{
                             id : data.id
@@ -150,50 +128,26 @@ class RecycleTestComponent extends React.Component {
                             imageStyle={{
                                 borderRadius:5
                             }}
-                            style={
-                                {
-                                    height:"100%",width:"100%",
-                                    borderTopRightRadius:5
-                                }
-                            }>
+                            style={style.trackerListItemImage}>
                             {
                                 nope ?
                                     <View/>
                                     :
-                                    <TouchableOpacity style={{position:'absolute',
-                                        right:5,
-                                        top:5,
-                                        width:40,
-                                        height:40,
-                                        borderRadius:25,
-                                        backgroundColor:'#000000aa',
-
-                                        justifyContent:'center',
-                                        alignItems:'center'
-                                    }}
+                                    <TouchableOpacity style={style.trackerListItemDeleteCTA}
                                                       onPress={()=>{
                                                           this.props.deleteItem(data.id);
                                                       }}
                                     >
-
                                         <MaterialCommunityIcons color={"#ffffff"} name={'delete'} size={25} />
                                     </TouchableOpacity>
-
-
                             }
-
-
                         </CustomCachedImage>
                     </View>
                     <View style={{flex:3,height:'100%',width:"100%"}}>
-
                         <View style={{flex:1,justifyContent:'center',paddingHorizontal:10}}>
                             <Text style={{fontSize:15,fontWeight:'bold'}}>{data.name}</Text>
                         </View>
-                            <View style={{flex:1,
-                                flexDirection:'row',
-                                borderBottomLeftRadius:5,
-                                justifyContent:'space-between'}}>
+                            <View style={style.trackerListItemDetailsContainer}>
                                 <View style={{flex:1,paddingLeft:10,justifyContent:'center'}}>
                                     {
                                         nope?
@@ -207,11 +161,7 @@ class RecycleTestComponent extends React.Component {
                                     nope ?
                                         <View/>
                                         :
-                                        <View style={{flexDirection:'row',
-                                            position:'absolute',
-                                            right:5,
-                                            justifyContent:'flex-end',
-                                            alignItems:'center'}}
+                                        <View
                                         >
                                             <PanGestureHandler
                                                 maxPointers={1}
@@ -222,29 +172,17 @@ class RecycleTestComponent extends React.Component {
                                                     height:'100%',
                                                     borderRadius:5,
                                                 }}>
-                                                    <View style={{flex:1,
-                                                        borderBottomRightRadius:5,
-                                                        justifyContent:'center',
-                                                        width:40,
-                                                        alignItems:'center'}}>
+                                                    <View style={style.tackerListDraggableCTAContainer}>
                                                         <FontAwesome5 name={'grip-lines'} size={25} />
                                                     </View>
-
-
                                                 </Animated.View>
-
                                             </PanGestureHandler>
                                         </View>
-
                                 }
-
                             </View>
-
-
-
-
                     </View>
                 </TouchableOpacity>
+
 
 
         );
@@ -253,7 +191,7 @@ class RecycleTestComponent extends React.Component {
     offY = new Value(0);
     gestureState = new Value(-1);
     onGestureEvent: any;
-    rowHeight = 250;
+    rowHeight = 270;
     currIdx = -1;
     scrollOffset = 0;
     lastScrollOffset = -1;
@@ -332,10 +270,6 @@ class RecycleTestComponent extends React.Component {
 
         }
     };
-
-
-
-
     render() {
         const { dragging, dataProvider, draggingIdx } = this.state;
         let e=0;
